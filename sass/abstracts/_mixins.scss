@@ -1,0 +1,60 @@
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin centerAbsolute {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// MEDIA QUERIES MANAGER  媒體查詢管理
+/*
+0 - 600px:  手機 phone
+600 - 900px:  平板 tablet portrait
+900 - 1200px: 橫向平板 tablet landscape
+[1200-1800px]:  電腦 desktop (is where out normal styles apply  正常樣式適用的地方)
+1800px up:  大螢幕 big desktop
+
+$breakpoint argument choice 斷點參數選擇:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+
+ORDER: Base + typography > general layout + grid > page layout > components
+順序：基礎 + 排版 > 整體佈局 + 網格 > 頁面佈局 > 元件
+
+1em = 16px
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) {
+      @content; //600px
+    }
+  }
+
+  @if $breakpoint == tab-port {
+    @media (max-width: 56.25em) {
+      @content; //900px
+    }
+  }
+
+  @if $breakpoint == tab-land {
+    @media (max-width: 75em) {
+      @content; //1200px
+    }
+  }
+
+  @if $breakpoint == big-desktop {
+    @media (min-width: 112.5em) {
+      @content; //1800px
+    }
+  }
+}
